@@ -1,8 +1,8 @@
 
 %define plugin	autosort
 %define name	vdr-plugin-%plugin
-%define version	0.0.10
-%define rel	14
+%define version	0.1.3
+%define rel	1
 
 Summary:	VDR plugin: Channel Autosort
 Name:		%name
@@ -11,9 +11,10 @@ Release:	%mkrel %rel
 Group:		Video
 License:	GPL
 URL:		http://www.copypointburscheid.de/linux/autosort.htm
-Source:		http://www.copypointburscheid.de/linux/vdr-%plugin-%version.tar.bz2
+Source:		http://www.copypointburscheid.de/linux/vdr-%plugin-%version.tgz
+Patch0:		autosort-90_ConfigDir.dpatch
 BuildRoot:	%{_tmppath}/%{name}-buildroot
-BuildRequires:	vdr-devel >= 1.4.1-6
+BuildRequires:	vdr-devel >= 1.6.0
 Requires:	vdr-abi = %vdr_abi
 
 %description
@@ -21,6 +22,9 @@ This plugin performs a presortion of new channels.
 
 %prep
 %setup -q -n %plugin-%version
+sed -i 's,/video,%{_vdr_videodir},' scripts/*.pl README*
+%patch0 -p1
+%vdr_plugin_prep
 
 %build
 %vdr_plugin_build
@@ -29,7 +33,8 @@ This plugin performs a presortion of new channels.
 rm -rf %{buildroot}
 %vdr_plugin_install
 
-install -D -m644 autosort.conf %{buildroot}%{_vdr_plugin_cfgdir}/autosort.conf
+install -d -m755 %{buildroot}%{_bindir}
+install -m755 scripts/*.pl %{buildroot}%{_bindir}
 
 %clean
 rm -rf %{buildroot}
@@ -42,7 +47,6 @@ rm -rf %{buildroot}
 
 %files -f %plugin.vdr
 %defattr(-,root,root)
-%doc README* HISTORY
-%config(noreplace) %{_vdr_plugin_cfgdir}/autosort.conf
-
+%doc README* HISTORY examples
+%{_bindir}/createopengroups.pl
 
