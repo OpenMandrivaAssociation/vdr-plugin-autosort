@@ -1,0 +1,28 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 90_ConfigDir.dpatch by Thomas Günther <tom@toms-cafe.de>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Fixes initialization fo ConfigDir.
+
+@DPATCH@
+--- autosort-0.1.3/autosort.c
++++ autosort-0.1.3/autosort.c
+@@ -81,6 +81,7 @@
+ bool cPluginAutoSort::Start(void)
+ {
+   // Start any background activities the plugin shall perform.
++  ConfigDir = strdup(cPlugin::ConfigDirectory());
+   cAutoSortMainThread::Init();
+   return true;
+ }
+--- autosort-0.1.3/autosort_menu.c
++++ autosort-0.1.3/autosort_menu.c
+@@ -35,7 +35,7 @@
+ int averageDuration = 0;
+ int activeChannel = 0;
+ 
+-const char *ConfigDir =  cPlugin::ConfigDirectory();
++const char *ConfigDir = NULL;
+ 
+ 
+ 
