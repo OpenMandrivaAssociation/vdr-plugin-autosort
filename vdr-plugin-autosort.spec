@@ -3,7 +3,7 @@
 Summary:	VDR plugin: Channel Autosort
 Name:		vdr-plugin-%plugin
 Version:	0.1.3
-Release:	6
+Release:	7
 Group:		Video
 License:	GPL
 URL:		http://www.copypointburscheid.de/linux/autosort.htm
