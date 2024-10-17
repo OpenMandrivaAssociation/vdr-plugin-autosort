@@ -6,7 +6,7 @@ Version:	0.1.3
 Release:	7
 Group:		Video
 License:	GPL
-URL:		http://www.copypointburscheid.de/linux/autosort.htm
+URL:		https://www.copypointburscheid.de/linux/autosort.htm
 Source:		http://www.copypointburscheid.de/linux/vdr-%plugin-%version.tgz
 Patch0:		autosort-90_ConfigDir.dpatch
 BuildRequires:	vdr-devel >= 1.6.0
